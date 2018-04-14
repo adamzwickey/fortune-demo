@@ -95,7 +95,7 @@ jobs:
     file: git-assets/ci/tasks/create-redis-cache.yml
     params:
       CF_APP: {{cf-app-name}}
-      CF_SERVICE: {{cf-service-name}}
+      CF_SERVICE_NAME: {{cf-service-name}}
       CF_SERVICE_MKT: {{cf-service-mkt}}
       CF_SERVICE_PLAN: {{cf-service-plan}}
       CF_SERVICE_COMMAND: {{cf-service-cmd}}
