@@ -1,0 +1,15 @@
+platform: linux
+
+
+image_resource:
+  type: docker-image
+  source:
+    repository: azwickey/deploy-worker
+    tag: "latest"
+inputs:
+- name: git-assets
+- name: version
+outputs:
+- name: volume-demo-releases
+run:
+  path: git-assets/ci/tasks/package.sh
