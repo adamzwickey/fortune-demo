@@ -30,22 +30,21 @@ resources:
   type: semver
   source:
     bucket: concourse-demos
-    key: fortune
+    key: fortune-demo
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 - name: pre-release
   type: github-release
   source:
     user: azwickey-pivotal
-    repository: fortune
+    repository: fortune-demo
     access_token: {{github-token}}
     pre_release: true
-    drafts: true
 - name: release
   type: github-release
   source:
     user: azwickey-pivotal
-    repository: fortune
+    repository: fortune-demo
     access_token: {{github-token}}
 
 jobs:
