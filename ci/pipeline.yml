@@ -185,7 +185,7 @@ jobs:
       name: version/number
       tag: version/number
       globs:
-          - fortune-releases/fortune*.jar
+          - releases/fortune*.jar
   - put: version
     params:
       file: version/number
