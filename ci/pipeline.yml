@@ -15,7 +15,8 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/azwickey-pivotal/fortune
+    uri: git@github.com:azwickey-pivotal/fortune-demo.git
+    private_key: {{github-key}}
 - name: Cloudfoundry
   type: cf
   source:
