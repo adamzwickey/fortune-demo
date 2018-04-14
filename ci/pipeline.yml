@@ -15,7 +15,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/azwickey-pivotal/volume-demo
+    uri: https://github.com/azwickey-pivotal/fortune
 - name: Cloudfoundry
   type: cf
   source:
@@ -29,14 +29,14 @@ resources:
   type: semver
   source:
     bucket: concourse-demos
-    key: volume-demo
+    key: fortune
     access_key_id: {{s3-access-key-id}}
     secret_access_key: {{s3-secret-access-key}}
 - name: pre-release
   type: github-release
   source:
     user: azwickey-pivotal
-    repository: volume-demo
+    repository: fortune
     access_token: {{github-token}}
     pre_release: true
     drafts: true
@@ -44,7 +44,7 @@ resources:
   type: github-release
   source:
     user: azwickey-pivotal
-    repository: volume-demo
+    repository: fortune
     access_token: {{github-token}}
 
 jobs:
@@ -78,7 +78,7 @@ jobs:
       name: version/number
       tag: version/number
       globs:
-        - volume-demo-releases/volume-demo*.jar
+        - fortune-releases/fortune*.jar
   - put: version
     params:
       file: version/number
@@ -96,7 +96,7 @@ jobs:
     trigger: true
     params:
       globs:
-        - volume-demo*.jar
+        - fortune*.jar
     passed:
       - build-artifact
   - get: version
@@ -185,7 +185,7 @@ jobs:
       name: version/number
       tag: version/number
       globs:
-          - volume-demo-releases/volume-demo*.jar
+          - fortune-releases/fortune*.jar
   - put: version
     params:
       file: version/number
