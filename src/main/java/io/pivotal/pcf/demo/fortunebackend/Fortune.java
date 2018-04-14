@@ -16,6 +16,10 @@ public class Fortune {
 
     public Fortune() {  }
 
+    public Fortune(String text) {
+        this.text = text;
+    }
+
 
     public Long getId() {
         return id;

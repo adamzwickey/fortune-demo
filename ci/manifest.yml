@@ -3,5 +3,5 @@ applications:
   instances: 1
   buildpack: java_buildpack_offline
   path: APPPATH
-#  services:
-#  - volume-service
+  services:
+  - APPSERVICE

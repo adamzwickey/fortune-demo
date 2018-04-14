@@ -3,6 +3,7 @@ groups:
   jobs:
   - unit-tests
   - build-artifact
+  - create-service
   - deploy-app
   - integration-test
   - ship-it
@@ -83,6 +84,28 @@ jobs:
     params:
       file: version/number
 
+- name: create-service
+  serial: true
+  public: true
+  serial_groups: [version]
+  plan:
+  - get: git-assets
+    trigger: true
+  - task: create-redis-cache
+    file: git-assets/ci/tasks/create-redis-cache.yml
+    params:
+      CF_APP: {{cf-app-name}}
+      CF_SERVICE: {{cf-service-name}}
+      CF_SERVICE_MKT: {{cf-service-mkt}}
+      CF_SERVICE_PLAN: {{cf-service-plan}}
+      CF_SERVICE_COMMAND: {{cf-service-cmd}}
+      CF_APP_DOMAIN: {{cf-app-domain}}
+      CF_API: {{cf-api}}
+      CF_ORG: {{cf-org}}
+      CF_USER: {{cf-user}}
+      CF_PWD: {{cf-pwd}}
+      CF_SPACE: {{cf-space}}
+
 - name: deploy-app
   serial: true
   public: true
@@ -92,6 +115,7 @@ jobs:
     trigger: true
     passed:
     - build-artifact
+    - create-service
   - get: pre-release
     trigger: true
     params:
