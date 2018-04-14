@@ -13,7 +13,7 @@ inputs:
 - name: pre-release
 
 outputs:
-- name: volume-demo-releases
+- name: releases
 
 run:
   path: git-assets/ci/tasks/release.sh
