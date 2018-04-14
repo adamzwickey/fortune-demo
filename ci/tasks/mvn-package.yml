@@ -10,6 +10,6 @@ inputs:
 - name: git-assets
 - name: version
 outputs:
-- name: {{cf-app-name}}-releases
+- name: releases
 run:
   path: git-assets/ci/tasks/package.sh
