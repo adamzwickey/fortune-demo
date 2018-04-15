@@ -3,7 +3,7 @@
 set -e
 
 export NEXT_APP_COLOR=$(cat ./current-app-info/next-app.txt)
-export NEXT_APP_URL=http://$CF_APP-$NEXT_APP_COLOR.$CF_APP_DOMAIN/
+export NEXT_APP_URL=http://$CF_APP-$NEXT_APP_COLOR.$CF_APP_DOMAIN/fortunes
 
 echo "Running curl integration tests..."
 
