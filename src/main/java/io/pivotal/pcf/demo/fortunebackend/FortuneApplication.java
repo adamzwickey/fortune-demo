@@ -21,7 +21,10 @@ public class FortuneApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
+
 		try {
+			if(!controller.all().isEmpty()) return;
+
 			controller.save(new Fortune("People are naturally attracted to you."));
 			controller.save(new Fortune("You learn from your mistakes... You will learn a lot today."));
 			controller.save(new Fortune("What ever your goal is in life, embrace it visualize it, and for it will be yours."));
