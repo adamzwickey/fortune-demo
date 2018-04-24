@@ -11,4 +11,4 @@ inputs:
 - name: git-assets
 
 run:
-  path: git-assets/ci/tasks/create-redis-cache
+  path: git-assets/ci/tasks/create-cache
