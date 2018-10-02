@@ -24,11 +24,9 @@ public class BackendController {
     @CrossOrigin
     public Fortune get(@PathVariable Long id) {
         LOG.info("Getting fortune for key [" + id + "] from Redis");
-        Fortune f = _repository.findOne(id);
-//        Optional<Fortune> f = _repository.findById(id);
+        Optional<Fortune> f = _repository.findById(id);
         LOG.debug("Fortune-[" + f + "]");
-//        return f.get();
-        return f;
+        return f.get();
     }
 
     @RequestMapping(value = "/fortune", method = RequestMethod.PUT, consumes="application/json")

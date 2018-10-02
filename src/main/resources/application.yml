@@ -1,4 +1,6 @@
 management:
+  cloudfoundry:
+    skip-ssl-validation: true
   security:
     enabled: false
   info:
