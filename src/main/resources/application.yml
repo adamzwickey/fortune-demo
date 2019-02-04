@@ -1,3 +1,6 @@
+spring:
+  application:
+    name: fortune
 management:
   cloudfoundry:
     skip-ssl-validation: true
@@ -6,6 +9,17 @@ management:
   info:
     git:
       mode: full
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
 ---
 spring:
   profiles: cloud
