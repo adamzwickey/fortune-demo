@@ -13,5 +13,5 @@ export PATH=$M2:$PATH
 cd git-assets/
 mvn -DskipTests=true package
 
-echo "saving file
+echo "saving file"
 cp target/*.jar ../releases/$CF_APP.jar
