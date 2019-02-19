@@ -59,7 +59,7 @@ jobs:
     params: {pre: rc}
     trigger: true
   - task: mvn-package
-    file: git-assets/ci/tasks/mvn-package.yml
+    file: git-assets/ci/tasks/mvn-package-spinn.yml
   - put: pre-release
     params:
       name: version/number
