@@ -60,6 +60,8 @@ jobs:
     trigger: true
   - task: mvn-package
     file: git-assets/ci/tasks/mvn-package-spinn.yml
+    params:
+      CF_APP: {{cf-app-name}}
   - put: pre-release
     params:
       name: version/number
@@ -77,7 +79,7 @@ jobs:
   serial_groups: [version]
   plan:
   - get: git-assets
-    trigger: true
+    trigger: false
   - get: pre-release
   - get: version
     params:
