@@ -14,4 +14,4 @@ cd git-assets/
 mvn -DskipTests=true package
 
 echo "saving file: $CF_APP.jar"
-cp target/*.jar ../releases/$CF_APP.jar
+cp target/*.jar ../$CF_APP/$CF_APP.jar
