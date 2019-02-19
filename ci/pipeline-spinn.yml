@@ -1,0 +1,115 @@
+groups:
+- name: main
+  jobs:
+  - unit-tests
+  - build-artifact
+  - ship-it
+  - patch
+  - major
+  - minor
+
+resources:
+- name: git-assets
+  type: git
+  source:
+    branch: master
+    uri: git@github.com:azwickey-pivotal/fortune-demo.git
+    private_key: {{github-key}}
+- name: version
+  type: semver
+  source:
+    bucket: concourse-demos
+    key: fortune-demo
+    access_key_id: {{s3-access-key-id}}
+    secret_access_key: {{s3-secret-access-key}}
+- name: pre-release
+  type: github-release
+  source:
+    user: azwickey-pivotal
+    repository: fortune-demo
+    access_token: {{github-token}}
+    pre_release: true
+- name: release
+  type: github-release
+  source:
+    user: azwickey-pivotal
+    repository: fortune-demo
+    access_token: {{github-token}}
+
+jobs:
+- name: unit-tests
+  serial: true
+  public: true
+  plan:
+  - get: git-assets
+    trigger: true
+  - task: mvn-test
+    file: git-assets/ci/tasks/unit-tests.yml
+
+- name: build-artifact
+  serial: true
+  public: true
+  serial_groups: [version]
+  plan:
+  - get: git-assets
+    trigger: true
+    passed:
+    - unit-tests
+  - get: version
+    params: {pre: rc}
+    trigger: true
+  - task: mvn-package
+    file: git-assets/ci/tasks/mvn-package.yml
+  - put: pre-release
+    params:
+      name: version/number
+      tag: version/number
+      globs:
+        - releases/fortune*.jar
+  - put: version
+    params:
+      file: version/number
+
+
+- name: ship-it
+  serial: true
+  public: true
+  serial_groups: [version]
+  plan:
+  - get: git-assets
+    trigger: true
+  - get: pre-release
+  - get: version
+    params:
+      bump: final
+  - task: create-release
+    file: git-assets/ci/tasks/release.yml
+    params:
+      CF_APP: {{cf-app-name}}
+  - put: release
+    params:
+      name: version/number
+      tag: version/number
+      globs:
+          - releases/fortune*.jar
+  - put: version
+    params:
+      file: version/number
+- name: patch
+  serial_groups: [version]
+  plan:
+  - get: version
+    passed: [ship-it]
+    trigger: true
+  - put: version
+    params: {bump: patch, pre: rc}
+- name: major
+  serial_groups: [version]
+  plan:
+  - put: version
+    params: {bump: major, pre: rc}
+- name: minor
+  serial_groups: [version]
+  plan:
+  - put: version
+    params: {bump: minor, pre: rc}
