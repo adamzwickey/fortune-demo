@@ -1,3 +1,3 @@
 # fortune-demo
 
-Updates
+Updated
