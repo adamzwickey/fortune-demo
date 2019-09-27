@@ -5,7 +5,7 @@
 
 	<groupId>io.pivotal.pcf.demo</groupId>
 	<artifactId>fortune</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
 	<name>fortune-backend</name>
