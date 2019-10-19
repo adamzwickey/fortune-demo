@@ -61,7 +61,7 @@ public class BackendController {
 
         List<Fortune> fortunes = new ArrayList<>();
         _repository.findAll().forEach(fortune -> fortunes.add(fortune));
-        try { Thread.sleep(100); } catch (InterruptedException ex) {ex.printStackTrace();}
+        //try { Thread.sleep(100); } catch (InterruptedException ex) {ex.printStackTrace();}
         LOG.info("Retrieved " + fortunes.size() + " fortunes");
         return Collections.unmodifiableList(fortunes);
     }
