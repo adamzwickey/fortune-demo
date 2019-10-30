@@ -48,7 +48,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+			<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+			<version>1.0.3.RELEASE</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
 		<dependency>
