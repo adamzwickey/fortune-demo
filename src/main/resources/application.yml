@@ -4,8 +4,6 @@ spring:
 management:
   cloudfoundry:
     skip-ssl-validation: true
-  security:
-    enabled: false
   info:
     git:
       mode: full
@@ -16,6 +14,9 @@ management:
   endpoint:
     prometheus:
       enabled: true
+    health:
+      show-details: always
+      show-components: always
   metrics:
     export:
       prometheus:
