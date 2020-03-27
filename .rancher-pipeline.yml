@@ -1,7 +1,10 @@
 stages:
 - name: Stage
   steps:
-  - applyYamlConfig:
-      path: ./app.yml
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: azwickey/fortune-demo
+      registry: 127.0.0.1:34886
 timeout: 5
 notification: {}
