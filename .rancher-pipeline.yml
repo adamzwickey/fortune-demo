@@ -4,5 +4,5 @@ stages:
   - runScriptConfig:
       image: java:8
       shellScript: ./mvnw clean package
-timeout: 60
+timeout: 5
 notification: {}
