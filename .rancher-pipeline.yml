@@ -1,0 +1,7 @@
+stages:
+- name: Stage
+  steps:
+  - applyYamlConfig:
+      path: ./app.yml
+timeout: 5
+notification: {}
