@@ -1,10 +1,8 @@
 stages:
 - name: Stage
   steps:
-  - publishImageConfig:
-      dockerfilePath: ./Dockerfile
-      buildContext: .
-      tag: azwickey/fortune-demo
-      registry: 127.0.0.1:34886
+  - runScriptConfig:
+      image: maven:3-jdk-7
+      shellScript: mvn package
 timeout: 5
 notification: {}
