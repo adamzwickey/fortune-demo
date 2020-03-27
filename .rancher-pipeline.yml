@@ -1,5 +1,5 @@
 stages:
-- name: Stage
+- name: Produce Image
   steps:
   - runScriptConfig:
       image: maven:3-jdk-8-slim
