@@ -1,8 +1,7 @@
 stages:
 - name: Stage
   steps:
-  - runScriptConfig:
-      image: java:8
-      shellScript: ./mvnw clean package
+  - applyYamlConfig:
+      path: ./app.yml
 timeout: 5
 notification: {}
