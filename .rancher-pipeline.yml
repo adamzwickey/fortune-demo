@@ -19,6 +19,6 @@ stages:
       name: redis-test
       targetNamespace: default
   - applyYamlConfig:
-      path: ./app.yaml
+      path: ./app.yml
 timeout: 20
 notification: {}
