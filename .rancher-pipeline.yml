@@ -2,7 +2,7 @@ stages:
 - name: Stage
   steps:
   - runScriptConfig:
-      image: maven:3-jdk-7
+      image: maven:3-jdk-8-slim
       shellScript: mvn package
 timeout: 20
 notification: {}
