@@ -4,5 +4,5 @@ stages:
   - runScriptConfig:
       image: maven:3-jdk-7
       shellScript: mvn package
-timeout: 5
+timeout: 20
 notification: {}
