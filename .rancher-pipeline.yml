@@ -1,13 +1,24 @@
 stages:
-- name: Produce Image
+- name: Build
   steps:
   - runScriptConfig:
       image: maven:3-jdk-8-slim
       shellScript: mvn package
+- name: Create Image
+  steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: azwickey/demo
       registry: 127.0.0.1:34886
+- name: Deploy
+  steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:library-redis
+      version: 9.0.2
+      name: redis-test
+      targetNamespace: default
+  - applyYamlConfig:
+      path: ./app.yaml
 timeout: 20
 notification: {}
