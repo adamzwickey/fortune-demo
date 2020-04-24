@@ -49,6 +49,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
  name: fortune-ingress
+ annotations:
+   cert-manager.io/cluster-issuer: contour-selfsigned-cluster-issuer
 spec:
  rules:
  - host: fortune.mgmt.tanzu.private.cloud.zwickey.net
