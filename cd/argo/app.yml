@@ -50,7 +50,7 @@ kind: Ingress
 metadata:
  name: fortune-ingress
  annotations:
-   cert-manager.io/cluster-issuer: contour-selfsigned-cluster-issuer
+   cert-manager.io/cluster-issuer: letsencrypt-contour-cluster-issuer
 spec:
  rules:
  - host: fortune.mgmt.tanzu.private.cloud.zwickey.net
