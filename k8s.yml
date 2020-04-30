@@ -46,14 +46,14 @@ spec:
         app: fortune-app
     spec:
       containers:
-      - image: azwickey/fortune-demo:latest
+      - image: docker-registry.p-lsmjm-pipeline/azwickey/fortune-demo:latest
         name: fortune-app
         ports:
         - containerPort: 8080
           protocol: TCP
         env:
         - name: SPRING_REDIS_HOST
-          value: "redis.default.svc.cluster.local"
+          value: "redis"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
