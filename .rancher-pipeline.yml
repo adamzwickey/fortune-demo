@@ -13,6 +13,11 @@ stages:
       registry: 127.0.0.1:34139
 - name: deploy app
   steps:
+  - applyAppConfig:
+      catalogTemplate: cattle-global-data:library-redis
+      version: 9.0.2
+      name: redis
+      targetNamespace: default
   - applyYamlConfig:
       path: ./k8s.yml
 timeout: 5
