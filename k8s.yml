@@ -42,6 +42,6 @@ spec:
           protocol: TCP
         env:
         - name: SPRING_REDIS_HOST
-          value: "redis.default.svc.cluster.local"    
+          value: "redis-master.default.svc.cluster.local"    
         - name: SPRING_REDIS_PASSWORD
           value: "topsecret"
