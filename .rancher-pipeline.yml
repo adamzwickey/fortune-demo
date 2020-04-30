@@ -9,7 +9,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: azwickey/fortune-demo
+      tag: fortune-demo:${CICD_EXECUTION_SEQUENCE}
       registry: 127.0.0.1:34139
 - name: deploy app
   steps:
