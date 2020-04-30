@@ -4,6 +4,17 @@ stages:
   - runScriptConfig:
       image: maven:3.jdk.8
       shellScript: mvn clean package
+- name: create image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: azwickey/fortune-demo
+      registry: 127.0.0.1:34139
+- name: deploy app
+  steps:
+  - applyYamlConfig:
+      path: ./app.yaml
 timeout: 5
 branch: {}
 notification: {}
