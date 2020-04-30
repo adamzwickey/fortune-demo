@@ -45,6 +45,8 @@ spec:
       labels:
         app: fortune-app
     spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
       containers:
       - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: fortune-app
