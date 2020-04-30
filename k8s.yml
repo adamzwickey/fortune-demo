@@ -13,19 +13,6 @@ spec:
   selector:
     app: fortune-app
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis
-  labels:
-    app: redis
-spec:
-  ports:
-  - port: 6379
-  type: ClusterIP
-  selector:
-    app: redis
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -56,26 +43,3 @@ spec:
         env:
         - name: SPRING_REDIS_HOST
           value: "redis"
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: redis
-spec:
-  replicas: 1
-  serviceName: "redis"
-  selector:
-    matchLabels:
-      app: redis
-  template:
-    metadata:
-      name: redis
-      labels:
-        app: redis
-    spec:
-      containers:
-      - image: redis:latest
-        name: redis
-        ports:
-        - containerPort: 6379
-          protocol: TCP
