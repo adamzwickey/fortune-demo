@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: fortune-app
 ---
@@ -22,7 +22,7 @@ metadata:
 spec:
   ports:
   - port: 6379
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: redis
 ---
@@ -46,7 +46,7 @@ spec:
         app: fortune-app
     spec:
       containers:
-      - image: ${CICD_REGISTRY}/azwickey/fortune-demo:latest
+      - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: fortune-app
         ports:
         - containerPort: 8080
