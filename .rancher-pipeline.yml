@@ -14,7 +14,7 @@ stages:
 - name: deploy app
   steps:
   - applyYamlConfig:
-      path: ./app.yaml
+      path: ./k8s.yml
 timeout: 5
 branch: {}
 notification: {}
