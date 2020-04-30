@@ -46,7 +46,7 @@ spec:
         app: fortune-app
     spec:
       containers:
-      - image: docker-registry.p-lsmjm-pipeline/azwickey/fortune-demo:latest
+      - image: ${CICD_REGISTRY}/azwickey/fortune-demo:latest
         name: fortune-app
         ports:
         - containerPort: 8080
