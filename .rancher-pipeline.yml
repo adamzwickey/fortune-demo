@@ -2,8 +2,8 @@ stages:
 - name: compile
   steps:
   - runScriptConfig:
-      image: maven:3.jdk.8
-      shellScript: mvn clean package
+      image: java:8
+      shellScript: ./mvnw clean package
 - name: create image
   steps:
   - publishImageConfig:
