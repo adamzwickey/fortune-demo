@@ -6,7 +6,7 @@ metadata:
    cert-manager.io/cluster-issuer: letsencrypt-contour-cluster-issuer
 spec:
  rules:
- - host: fortune.mgmt.tanzu.private.cloud.zwickey.net
+ - host: fortune.mgmt.tanzu.zwickey.net
    http:
      paths:
      - backend:
@@ -14,5 +14,5 @@ spec:
          servicePort: 80
  tls:
  - hosts:
-   - fortune.mgmt.tanzu.private.cloud.zwickey.net
+   - fortune.mgmt.tanzu.zwickey.net
    secretName: ingress-tls
