@@ -1,35 +1,60 @@
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: fortune
+  labels:
+    istio-injection: enabled
+---
+apiVersion: v1
 kind: Service
 metadata:
-  name: fortune-service
+  name: fortune-api
+  namespace: fortune
   labels:
-    app: fortune-service
+    app: fortune-api
 spec:
   ports:
-  - port: 80
-    targetPort: 8080
-  type: LoadBalancer
+  - port: 8080
+    name: http
+  #type: LoadBalancer
   selector:
-    app: fortune-app
+    app: fortune-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortune-ui
+  namespace: fortune
+  labels:
+    app: fortune-ui
+spec:
+  ports:
+  - port: 8080
+    name: http
+  #type: LoadBalancer
+  selector:
+    app: fortune-ui
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: redis
+  namespace: fortune
   labels:
     app: redis
 spec:
   ports:
   - port: 6379
-  type: LoadBalancer
+  #type: LoadBalancer
   selector:
     app: redis
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fortune-app
+  name: fortune-api-v1
+  namespace: fortune
   annotations:
     prometheus.io/path: '/actuator/prometheus'
     prometheus.io/port: '8080'
@@ -38,27 +63,98 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fortune-app
+      app: fortune-api
+      version: v1
   template:
     metadata:
-      name: fortune-app
+      name: fortune-api-v1
+      namespace: fortune
       labels:
-        app: fortune-app
+        app: fortune-api
+        version: v1
     spec:
       containers:
-      - image: azwickey/fortune-demo:latest
-        name: fortune-app
+      - image: gcr.io/abz-dev/fortune:v1 
+        name: fortune-api
         ports:
         - containerPort: 8080
+          name: http
           protocol: TCP
         env:
         - name: SPRING_REDIS_HOST
-          value: "redis.default.svc.cluster.local"
+          value: "redis"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortune-api-v2
+  namespace: fortune
+  annotations:
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+    prometheus.io/scrape: 'true'
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fortune-api
+      version: v2
+  template:
+    metadata:
+      name: fortune-api-v2
+      namespace: fortune
+      labels:
+        app: fortune-api
+        version: v2
+    spec:
+      containers:
+      - image: gcr.io/abz-dev/fortune:v2 
+        name: fortune-api
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: SPRING_REDIS_HOST
+          value: "redis"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortune-ui
+  namespace: fortune
+  annotations:
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
+    prometheus.io/scrape: 'true'
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fortune-ui
+  template:
+    metadata:
+      name: fortune-ui
+      namespace: fortune
+      labels:
+        app: fortune-ui
+    spec:
+      containers:
+      - image: gcr.io/abz-dev/fortune:v1 
+        name: fortune-app
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: SPRING_REDIS_HOST
+          value: "redis"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis
+  namespace: fortune
 spec:
   replicas: 1
   serviceName: "redis"

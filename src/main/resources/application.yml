@@ -1,12 +1,19 @@
 spring:
   application:
     name: fortune
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: "/ui"
+springdoc:
+  api-docs:
+    path: '/openapi'
+  swagger-ui:
+    path: '/api-docs'
 management:
-  cloudfoundry:
-    skip-ssl-validation: true
-  info:
-    git:
-      mode: full
   endpoints:
     web:
       exposure:
@@ -17,17 +24,6 @@ management:
     health:
       show-details: always
       show-components: always
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-    distribution:
-      percentiles-histogram:
-        "[http.server.requests]": true
-      sla:
-        "[http.server.requests]": 10ms, 100ms, 500ms
-      percentiles:
-        "[http.server.requests]": 0.50, 0.75, 0.90, 0.95, 0.98, 0.99, 0.999, 1.0
 ---
 spring:
   profiles: cloud

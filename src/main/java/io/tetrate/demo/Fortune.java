@@ -1,7 +1,6 @@
-package io.pivotal.pcf.demo.fortunebackend;
+package io.tetrate.demo;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.redis.core.RedisHash;
 
 
@@ -34,7 +33,7 @@ public class Fortune {
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text = text.toUpperCase();
     }
 
     public String toString() {

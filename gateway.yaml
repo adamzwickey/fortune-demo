@@ -1,0 +1,46 @@
+---
+apiVersion: install.tetrate.io/v1alpha1
+kind: IngressGateway
+metadata:
+  name: fortune-gateway
+  namespace: fortune
+spec:
+  kubeSpec:
+    service:
+      type: LoadBalancer
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-gke-tsb
+  namespace: default
+spec:
+  acme:
+    email: adam@tetrate.io
+    preferredChain: "ISRG Root X1"
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: cert-manager-issuer-gke-tsb-account-key
+    solvers:
+      - selector:
+          dnsZones:
+            - zwickey.net
+        dns01:
+          cloudDNS:
+            project: abz-dev
+            serviceAccountSecretRef:
+              name: clouddns-dns01-solver-svc-acct
+              key: key.json
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fortune-certs
+  namespace: fortune
+spec:
+  secretName: fortune-certs
+  issuerRef:
+    name: letsencrypt-gke-tsb
+    kind: ClusterIssuer
+  dnsNames:
+    - fortune.cloud.zwickey.net

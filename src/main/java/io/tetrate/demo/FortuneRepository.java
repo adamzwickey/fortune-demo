@@ -1,4 +1,4 @@
-package io.pivotal.pcf.demo.fortunebackend;
+package io.tetrate.demo;
 
 import org.springframework.data.repository.CrudRepository;
 
